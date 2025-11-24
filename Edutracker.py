@@ -1,50 +1,104 @@
-# Edutracker
-# A way of know your growth.
+import json
+
+DATA_FILE = "edutracker_data.json"
+
+# ------------------- Data Loading and Saving -------------------
+
+def load_data():
+    try:
+        with open(DATA_FILE, "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return {}
+    except json.JSONDecodeError:
+        return {}
+
+def save_data(data):
+    with open(DATA_FILE, "w") as file:
+        json.dump(data, file, indent=4)
+
+# ------------------- Main Dashboard -------------------
+
 def personalized_dashboard():
-    name = input("Hello user! Please enter your name!:\n").title()
-    print(f'Hello {name}, welcome to the EduTracker')
+    data = load_data()
 
-    print("* Python\n* Java\n* Data Science\n* Web Development\n* Machine Learning\n* Cyber Security\n* Cloud Computing")
+    name = input("Hello user! Please enter your name:\n").title()
 
-    available_courses = ["Python", "Java", "Data Science", "Web Development", "Machine Learning", "Cyber Security", "Cloud Computing"]
+    if name in data:
+        print(f"\nWelcome back {name}! Loading your previous progress...\n")
+        user_data = data[name]
+        display_dashboard(name, user_data["course"], user_data["progress"], user_data["recommended_hours"])
+        return
+    
+    print(f'Hello {name}, welcome to EduTracker!\n')
+
+    available_courses = [
+        "Python", "Java", "Data Science", "Web Development",
+        "Machine Learning", "Cyber Security", "Cloud Computing"
+    ]
+
+    print("\nAvailable Courses:")
+    for course in available_courses:
+        print(f"* {course}")
 
     while True:
-        course = input("Which course would you like to enroll in?\n").strip().title()
+        course = input("\nWhich course would you like to enroll in?\n").strip().title()
         if course in available_courses:
-            print(f'You have selected {course}')
+            print(f"You have selected {course}")
             break
         else:
-            print("Invalid course selection. Please choose a course from the available options:")
-            print("* Python\n* Java\n* Data Science\n* Web Development\n* Machine Learning\n* Cyber Security\n* Cloud Computing")
+            print("\nInvalid selection! Choose from the available courses.")
 
-    days = int(input("Enter the duration of the course in days:\n"))
+    # Course duration
+    while True:
+        try:
+            days = int(input("Enter the duration of the course in days:\n"))
+            break
+        except ValueError:
+            print("Please enter a valid number of days!")
 
-    def study_hours_per_day(total_hours, days):
-        return total_hours / days
-
+    # Study hours calculation
     total_hours = 100
-    recommended_hours = study_hours_per_day(total_hours, days)
- 
-    def get_valid_progress():
-        while True:
-            try:
-                progress = int(input("Enter your course progress (0-100): "))
-                if 0 <= progress <= 100:
-                    return progress
-                else:
-                    print("Progress must be between 0 and 100. Try again.")
-            except ValueError:
-                print("Invalid input! Please enter an integer.")
+    recommended_hours = total_hours / days
 
+    # Progress validation
     progress = get_valid_progress()
 
+    # Save data for multi-user support
+    data[name] = {
+        "course": course,
+        "progress": progress,
+        "recommended_hours": recommended_hours
+    }
+
+    save_data(data)
+    print("\nYour progress has been saved successfully!")
     display_dashboard(name, course, progress, recommended_hours)
 
+# ------------------- Progress Validation -------------------
+
+def get_valid_progress():
+    while True:
+        try:
+            progress = int(input("Enter your course progress (0-100): "))
+            if 0 <= progress <= 100:
+                return progress
+            else:
+                print("Progress must be between 0 and 100!")
+        except ValueError:
+            print("Invalid input! Enter a valid number.")
+
+# ------------------- Dashboard Display -------------------
+
 def display_dashboard(name, course, progress, recommended_hours):
-    print(f"\n{'='*30}\nDashboard for {name}\n{'='*30}")
+    print(f"\n{'='*35}")
+    print(f"📘 Dashboard for {name}")
+    print(f"{'='*35}")
     print(f"Course Enrolled: {course}")
     print(f"Progress: {progress}%")
-    print(f"Recommended Study Hours per Day: {recommended_hours:.2f} hours\n")
+    print(f"Recommended Study Hours/Day: {recommended_hours:.2f} hours")
+    print("="*35)
 
-# here i am Calling  the function
+# ------------------- Start App -------------------
+
 personalized_dashboard()
