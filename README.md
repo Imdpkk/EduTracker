@@ -1,28 +1,35 @@
-📘 EduTracker – Python-based Learning Management System (CLI App)
+🎓 EduTracker – Python LMS (CLI Application)
 
-EduTracker is a Python-based command-line LMS that allows users to enroll in courses, track their progress, and view personalized study dashboards. The system supports multi-user functionality and stores data using JSON for persistence.
+A simple and effective Learning Management System built using Python.
 
-🔥 Features
+🧩 Overview
 
-Multi-user LMS system
+EduTracker is a command-line Python application designed to help users enroll in courses, track their progress, and view personalized dashboards.
+It supports multiple users, stores data permanently using JSON, and provides a clean, interactive CLI experience.
 
-Course enrollment
+✨ Features
 
-Progress tracking (0–100%)
+🔹 Multi-user LMS
 
-Automatic study-hour recommendations
+🔹 Course enrollment system
 
-JSON-based permanent data storage
+🔹 Progress tracking (0–100%)
 
-Clean CLI-based dashboard
+🔹 Personalized study recommendations
 
-Input validation & error handling
+🔹 JSON-based data storage
 
-🛠️ Tech Used
+🔹 Automatic loading of previous user data
+
+🔹 Clean CLI dashboard
+
+🔹 Error handling and validation
+
+🛠 Tech Stack
 
 Python
 
-JSON Storage
+JSON Data Storage
 
 Functions & Modular Code
 
@@ -30,31 +37,35 @@ CLI Interaction
 
 Error Handling
 
-🚀 How It Works
+📁 Project Structure
 
-User enters their name
-
-If user exists → loads their previous progress
-
-If new user → enrolls in a course
-
-User provides course progress
-
-A personalized dashboard is displayed
-
-Data is saved in edutracker_data.json
-
-📂 Project Structure
 │── edutracker.py
 │── edutracker_data.json
 │── README.md
 
-💡 Future Enhancements
+🚀 How to Run
 
-SQLite database support
+python edutracker.py
 
-GUI using Tkinter
+🧪 Future Enhancements
 
-Web version using Django or Flask
+🔸 SQLite database integration
 
-Cloud deployment (AWS EC2 + S3)
+🔸 Tkinter GUI version
+
+🔸 Web version using Django/Flask
+
+🔸 Cloud deployment on AWS EC2 + S3
+
+⭐ Author
+
+Deepak Vishwakarma
+Learning Python, Cloud Computing, and Software Engineering 🚀
+
+📧 Email: deepvishwakarma.2114@gmail.com
+
+📞 Contact: +91-9076930585
+🔗 LinkedIn: linkedin.com/in/deepak-vishwakarma-846ba1269/
+🔗 GitHub: https://github.com/Imdpkk
+
+
